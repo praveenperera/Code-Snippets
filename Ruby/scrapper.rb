@@ -30,6 +30,7 @@ def get_rows_on_page(html)
   array.compact
 end
 
+html = get_html("example.com")
 array = get_rows_on_page(html)
 
 
