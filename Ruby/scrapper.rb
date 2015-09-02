@@ -6,6 +6,7 @@ require 'mechanize'
 require 'pry'
 require 'pp'
 
+SCRAPE_URL = 'http://www.srilankamedicalcouncil.org/registry.php?start=0&registry=3'
 
 def start_mechanize(link)
   agent = Mechanize.new
