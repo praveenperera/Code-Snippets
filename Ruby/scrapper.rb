@@ -1,15 +1,19 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'nokogiri'
-require 'pp'
 require 'json'
 require 'mechanize'
 require 'pry'
+require 'pp'
 
 
-def get_html(link)
+def start_mechanize(link)
   agent = Mechanize.new
   agent.get(link)
+end
+
+def get_html(agent)
+  Nokogiri::HTML(agent.body)
 end
 
 def get_rows_on_page(html)
@@ -30,7 +34,7 @@ def get_rows_on_page(html)
   array.compact
 end
 
-agent = get_html("http://example.com")
-html = Nokogiri::HTML(agent.body)
+agent = start_mechanize(SCRAPE_URL)
+html = get_html(agent)
 pp array = get_rows_on_page(html)
 
