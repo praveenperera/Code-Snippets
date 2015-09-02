@@ -13,8 +13,8 @@ def start_mechanize(link)
   agent.get(link)
 end
 
-def get_html(agent)
-  Nokogiri::HTML(agent.body)
+def get_html(page)
+  Nokogiri::HTML(page.body)
 end
 
 def get_rows_on_page(html)
@@ -35,7 +35,31 @@ def get_rows_on_page(html)
   array.compact
 end
 
-agent = start_mechanize(SCRAPE_URL)
-html = get_html(agent)
-pp array = get_rows_on_page(html)
+def get_page(url,page)
+  html = get_html(page)
+  array = get_rows_on_page(html)
+end
+
+def get_next_page(page)
+  next_page = page.link_with(:dom_id => 'next').click
+  html = get_html(next_page)
+  get_rows_on_page(html)
+end
+
+def last_page?(page)
+  !page.link_with(:dom_id => 'next')
+end
+
+page = start_mechanize(SCRAPE_URL)
+array = get_page(SCRAPE_URL, page)
+
+loop do
+  array << get_next_page(page)
+  page = page.link_with(:dom_id => 'next').click
+  break if last_page?(page)
+end
+
+File.open("act15.json","w") do |f|
+  f.write(JSON.pretty_generate(array))
+end
 
