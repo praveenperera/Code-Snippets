@@ -3,10 +3,9 @@ require 'rubygems'
 require 'nokogiri'
 require 'json'
 require 'mechanize'
-require 'pry'
-require 'pp'
 
-SCRAPE_URL = 'http://www.srilankamedicalcouncil.org/registry.php?start=0&registry=3'
+
+SCRAPE_URL = ARGV[0]
 
 def start_mechanize(link)
   agent = Mechanize.new
@@ -28,6 +27,8 @@ def get_rows_on_page(html)
       full_name: row.css('td')[3].inner_html.chomp.strip,
       address: row.css('td')[4].inner_html.chomp.strip,
       qualifications: row.css('td')[5].inner_html.chomp.strip,
+      scraped: true,
+      section: 'ACT15'
       ]
     end
   array << h
@@ -37,7 +38,7 @@ end
 
 def get_page(url,page)
   html = get_html(page)
-  array = get_rows_on_page(html)
+  get_rows_on_page(html)
 end
 
 def get_next_page(page)
@@ -60,6 +61,6 @@ loop do
 end
 
 File.open("act15.json","w") do |f|
-  f.write(JSON.pretty_generate(array))
+  f.write(JSON.pretty_generate(array.flatten))
 end
 
