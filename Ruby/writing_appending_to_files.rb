@@ -12,3 +12,8 @@ end
 File.open('act15.json', 'a') { |f|
   f.puts(JSON.pretty_generate(array))
 end
+
+##
+# Reading file
+#
+File.open('xxx.txt').read
