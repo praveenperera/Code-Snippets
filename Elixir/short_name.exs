@@ -18,4 +18,4 @@ defmodule Shortname do
 
 end
 
-IO.inspect Shortname.short_name("Chintha Perera Perera Perera Perera")
+IO.inspect Shortname.short_name("George Michael Harrison Bleuth")
