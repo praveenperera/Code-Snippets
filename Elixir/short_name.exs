@@ -16,3 +16,4 @@ defmodule Shortname do
 end
 
 IO.inspect Shortname.short_name("George Michael Harrison Bleuth")
+# iex> "George M. H. Bleuth"
