@@ -1,12 +1,12 @@
 defmodule Functions do
 
-	def fun do
-		fn x -> x * 2 end
-	end
+   def fun do
+      fn x -> x * 2 end
+   end
 
-	def fun2(x) do
-		x * 2
-	end
+   def fun2(x) do
+      x * 2
+   end
 
 end
 
