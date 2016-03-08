@@ -31,7 +31,6 @@ defmodule ListOps do
   defp _count([], acc), do: acc
   defp _count([_|tail], acc), do: _count(tail, acc + 1)
 
-
   defp _reverse([hd |tail], reversed_list), do: _reverse(tail, [hd | reversed_list])
   defp _reverse([], reversed_list), do: reversed_list
 
@@ -41,13 +40,9 @@ defmodule ListOps do
 
   defp _filter(incoming_list, f, reversed_list \\ [])
   defp _filter([], _, reversed_list), do: reversed_list |> reverse
-
   defp _filter([hd |tail], f, reversed_list) do
-    case f.(hd) do
-      true -> _filter(tail, f, [hd | reversed_list])
-      _ -> _filter(tail, f, reversed_list)
-    end
-  end
+     if f.(hd), do: _filter(tail, f, [hd | reversed_list]), else: _filter(tail, f, reversed_list)
+  end   
 
   defp _reduce([], acc, _ ), do: acc
   defp _reduce([hd |tail], acc, f), do: _reduce(tail, f.(hd, 0) + acc, f)
