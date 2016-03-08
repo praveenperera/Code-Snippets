@@ -13,18 +13,14 @@ defmodule Words do
       |> get_count()
   end
 
-  defp get_count(working_list, complete_list \\ false, map \\ %{})
+  defp get_count(list, map \\ %{})
 
-  defp get_count(list=[word|tail], complete_list, map) do
-    complete_list = complete_list || list
-
-    count = Enum.count(complete_list, &(&1 == word))
-    map = Dict.put(map, word, count)
-
-    get_count(tail, complete_list, map)
+  defp get_count([word|tail], map) do
+    map = Dict.update(map, word, 1, &(&1 + 1))
+    get_count(tail, map)
   end
 
-  defp get_count([], _, map) do
+  defp get_count([], map) do
     map
   end
 
