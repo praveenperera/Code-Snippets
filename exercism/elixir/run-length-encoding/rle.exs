@@ -9,8 +9,7 @@ defmodule RunLengthEncoder do
   @spec encode(String.t) :: String.t
   def encode(string) do
     string
-    |> String.split("")
-    |> Enum.reject(&(&1 == ""))
+    |> String.split("", trim: true)
     |> _encode
 
   end
@@ -18,8 +17,7 @@ defmodule RunLengthEncoder do
   @spec decode(String.t) :: String.t
   def decode(string) do
     string
-    |> String.split("")
-    |> Enum.reject(&(&1 == ""))
+    |> String.split("", trim: true)
     |> convert_to_ints
     |> combine_digits
     |> expand
