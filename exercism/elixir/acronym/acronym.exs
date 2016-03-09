@@ -18,9 +18,9 @@ defmodule Acronym do
 
   def remove_extra_spaces(string), do: String.replace(string, ~r{\s\s+}, " ")
 
-  def split_camelcase_words(string), do: Regex.replace(~r/([[:lower:]])([[:upper:]])/, string, "\\1 \\2")
+  def split_camelcase_words(string), do: Regex.replace(~r/([a-z])([A-Z])/, string, "\\1 \\2")
 
-  def split_on_spaces(string), do:
+  def split_on_spaces(string), do: String.split(string, " ")
 
   def select_first_letter(list), do: Enum.reduce(list, "", fn x, acc -> acc <> String.first(x) end)
 end
