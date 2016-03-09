@@ -9,8 +9,9 @@ defmodule Acronym do
      |> sanitize
      |> strip_punctuation
      |> remove_extra_spaces
+     |> split_camelcase_words
      |> split_on_spaces
-     |> select_capitals
+     |> select_first_letter
      |> String.upcase
   end
 
@@ -22,14 +23,7 @@ defmodule Acronym do
 
   def split_on_spaces(string), do: String.split(string, " ")
 
-  def select_capitals(list) do
-     list |> Enum.reduce("", fn x, acc ->
-       mid_word_capitals = Regex.scan(~r/[A-Z]/, x) |> List.flatten |> get_midword_capitals
-       acc <> String.first(x) <> mid_word_capitals
-     end)
-  end
+  def split_camelcase_words(string), do: Regex.replace(~r/([[:lower:]])([[:upper:]])/, string, "\\1 \\2")
 
-  def get_midword_capitals(list) do
-    if length(list) > 0, do: tl(list) |> Enum.join(""), else: Enum.join(list, "")
-  end
+  def select_first_letter(list), do: Enum.reduce(list, "", fn x, acc -> acc <> String.first(x) end)
 end
