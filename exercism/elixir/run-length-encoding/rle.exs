@@ -27,8 +27,10 @@ defmodule RunLengthEncoder do
   defp _encode([], acc), do: Enum.reverse(acc) |> Enum.join()
   defp _encode([ num, a, a | tail ], acc) when is_integer(num), do: _encode( [num+1, a | tail], acc)
   defp _encode([ num, a, b | tail ], acc) when is_integer(num), do: _encode( [1, b | tail], [a, num |acc] )
+
   defp _encode([ a,a | tail ], acc), do: _encode( [2, a | tail], acc)
   defp _encode([ a,b | tail ], acc) when is_integer(a) == false, do: _encode( [1, a, b | tail],  acc)
+  
   defp _encode([ hd | tail ], acc), do: _encode( tail, [ hd | acc])
 
   defp convert_to_ints(list), do: Enum.map(list, fn x -> if Regex.match?(~r{\d}, x), do: String.to_integer(x), else: x end)
