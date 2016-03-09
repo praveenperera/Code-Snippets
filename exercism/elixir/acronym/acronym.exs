@@ -18,7 +18,7 @@ defmodule Acronym do
 
   def remove_extra_spaces(string), do: String.replace(string, ~r{\s\s+}, " ")
 
-  def split_camelcase_words(string), do: Regex.replace(~r{([a-z])([A-Z])}, string, "\\1 \\2")
+  def split_camelcase_words(string), do: String.replace(string, ~r{([a-z])([A-Z])}, "\\1 \\2")
 
   def split_on_spaces(string), do: String.split(string, " ")
 
