@@ -24,10 +24,15 @@ defmodule NamedParam do
 end
 
 NamedParam.keyword_list_params(name: "Praveen", birthday: "1992-03-22") #works
-NamedParam.named_params(birthday: "1992-03-22", name: "Praveen") #works
-NamedParam.named_params_with_defaults(name: "Praveen") #works
-NamedParam.named_params_with_defaults(birthday: "1992-03-22") #works
 
-# NamedParam.named_params(name: "Praveen", birthday: "1992-03-22") #works
+NamedParam.named_params(name: "Praveen", birthday: "1992-03-22") #works
+NamedParam.named_params(birthday: "1992-03-22", name: "Praveen") #works
+NamedParam.named_params(name: "Praveen", birthday: "1992-03-22", extra: "nonsense") #works
+
+NamedParam.named_params_with_defaults(name: "George") #works
+NamedParam.named_params_with_defaults(birthday: "1992-03-30") #works
+NamedParam.named_params_with_defaults(name: "Praveen", birthday: "1992-03-22", extra: "nonsense") #works
+
+# NamedParam.keyword_list_params(name: "Praveen", birthday: "1992-03-22", extra: "nonsense") #fails
 # NamedParam.keyword_list_params(birthday: "1992-03-22", name: "Praveen") #fails
 
